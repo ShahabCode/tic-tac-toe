@@ -52,3 +52,26 @@ def is_winner(board, player):
 
 def has_empty_space():
     return board.count("X") + board.count("O") != 9
+
+
+def computer_move():
+    move = -1
+    for i in range(1, 10):
+        if make_move(board, computer, i, True)[1]:
+            move = i
+            break
+
+    if move == -1:
+        for j in range(1, 10):
+            if make_move(board, me, j, True)[1]:
+                move = j
+                break
+
+    if move == -1:
+        for tup in moves:
+            for m in tup:
+                if move == -1 and can_move(board, m):
+                    move = m
+                    break
+                
+    return make_move(board, computer, move)
