@@ -75,3 +75,26 @@ def computer_move():
                     break
                 
     return make_move(board, computer, move)
+
+
+me, computer = "X", "O"
+print("\nPlayer: X\nComputer: O\n")
+
+while has_empty_space():
+    print_board()
+    move = int(input("Choose your move (1-9): "))
+    moved, won = make_move(board, me, move)
+    if not moved:
+        print(colored("Invalid number!\ntry again. . .", "yellow"))
+        continue
+    if won:
+        print_board()
+        print(colored("You won!", "green"))
+        break
+    elif computer_move()[1]:
+        print_board()
+        print(colored("You lose!", "red"))
+        break
+
+if not is_winner(board, me) and not is_winner(board, computer) and not has_empty_space():
+    print(colored("It's a draw! Play again.", "yellow"))
