@@ -18,3 +18,37 @@ def print_board():
         else:
             print(f"[{i}]", end=end)
         j += 1
+
+
+def make_move(board, player, move, undo=False):
+    if can_move(board, move):
+        board[move - 1] = player
+        win = is_winner(board, player)
+        if undo:
+            board[move - 1] = move  
+        return True, win
+    return False, False
+
+
+def can_move(board, move):
+    if move in range(1, 10) and isinstance(board[move - 1], int):
+        return True
+    else:
+        return False
+
+
+def is_winner(board, player):
+    win = True
+    for tup in winners:
+        win = True
+        for j in tup:
+            if board[j] != player:
+                win = False
+                break
+        if win:
+            break
+    return win
+
+
+def has_empty_space():
+    return board.count("X") + board.count("O") != 9
